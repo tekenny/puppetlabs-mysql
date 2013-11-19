@@ -63,4 +63,14 @@ Puppet::Type.newtype(:mysql_grant) do
     desc 'Options to grant.'
   end
 
+  newproperty(:object_type => :TABLE) do
+    desc 'Type of object to apply privileges to.'
+
+    munge do |value|
+      value.delete("`")
+    end
+
+    newvalues(:TABLE, :FUNCTION, :PROCEDURE)
+  end
+
 end
